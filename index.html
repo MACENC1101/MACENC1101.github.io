@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ENC 1101 ePortfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --ink: #1a1612;
+        --paper: #ffffff;
+        --cream: #fcfcfc;
+        --accent: #8b4a2b;
+        --muted: #7a7065;
+        --rule: #c8bfb0;
+      }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        background-color: var(--paper);
+        color: var(--ink);
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-weight: 300;
+        line-height: 1.8;
+      }
+
+      /* ── Header ── */
+      header {
+        border-bottom: 2px solid var(--ink);
+        padding: 3rem 2rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        animation: fadeDown 0.8s ease both;
+      }
+
+      
+      .portfolio-label {
+        font-family: 'Source Serif 4', serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      header h1 {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+      }
+
+      header p {
+        margin-top: 1rem;
+        color: var(--muted);
+        font-size: 1rem;
+        max-width: 480px;
+        margin-inline: auto;
+        font-style: italic;
+      }
+
+      /* ── Nav ── */
+      nav {
+        background: var(--ink);
+        display: flex;
+        justify-content: center;
+        gap: 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        animation: fadeDown 0.8s 0.2s ease both;
+      }
+
+      nav a {
+        color: var(--paper);
+        text-decoration: none;
+        font-family: 'Source Serif 4', serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 1rem 1.8rem;
+        border-right: 1px solid rgba(255,255,255,0.1);
+        transition: background 0.2s, color 0.2s;
+      }
+
+      nav a:first-child { border-left: 1px solid rgba(255,255,255,0.1); }
+      nav a:hover { background: var(--accent); color: #fff; }
+
+      /* ── Main ── */
+      main {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      section {
+        margin-bottom: 4rem;
+        opacity: 0;
+        transform: translateY(24px);
+        animation: fadeUp 0.7s ease forwards;
+      }
+
+      section:nth-child(1) { animation-delay: 0.3s; }
+      section:nth-child(2) { animation-delay: 0.45s; }
+      section:nth-child(3) { animation-delay: 0.6s; }
+      section:nth-child(4) { animation-delay: 0.75s; }
+
+      .section-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.4rem;
+      }
+
+      section h2 {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: clamp(1.4rem, 3.5vw, 2rem);
+        font-weight: 400;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 0.6rem;
+        margin-bottom: 1.2rem;
+      }
+
+      section p { color: #3d3530; margin-bottom: 1rem; }
+
+      /* ── Cards ── */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.2rem;
+        margin-top: 1.2rem;
+      }
+
+      .card {
+        background: var(--cream);
+        border: 1px solid var(--rule);
+        padding: 1.4rem 1.2rem;
+        border-radius: 2px;
+        transition: box-shadow 0.2s, transform 0.2s;
+        cursor: default;
+      }
+
+      .card:hover {
+        box-shadow: 4px 4px 0 var(--ink);
+        transform: translate(-2px, -2px);
+      }
+
+      .card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+      .card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+      }
+
+      .card p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+      /* ── Footer ── */
+      footer {
+        border-top: 2px solid var(--ink);
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      /* ── Animations ── */
+      @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 520px) {
+        nav { flex-wrap: wrap; }
+        nav a { flex: 1 1 50%; text-align: center; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <header>
+      <p class="portfolio-label">ENC 1101 &amp; 1102 &nbsp;·&nbsp; English Composition</p>
+      <h1>ePortfolio</h1>
+    </header>
+
+    <nav>
+      <a href="#about">About</a>
+      <a href="#essays">Essays</a>
+      <a href="#reflections">Reflections</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <main>
+
+      <section id="about">
+        <p class="section-number">Section 1</p>
+        <h2>About Me</h2>
+        <p>Welcome to my ePortfolio. My name is <strong>Matthew Cruz</strong>, and I am currently enrolled in ENC 1101 at the <strong>University of Central Florida</strong>. This portfolio documents my journey as a writer and thinker throughout the course.</p>
+        <p>Through this class, I aim to develop stronger argumentative, analytical, and research writing skills that can be used in my Senior Design.</p>
+      </section>
+
+      <section id="essays">
+        <p class="section-number">Section 2</p>
+        <h2>Essays &amp; Documents</h2>
+        <p>Written work produced throughout the semester will be collected here. Check back as new assignments are added.</p>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>Essay 1 Draft</h3>
+            <p>Coming soon — title and link will be added here.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📄</div>
+            <h3>Essay 1 Final</h3>
+            <p>Coming soon — title and link will be added here.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>Essay 2 draft</h3>
+            <p>Coming soon — title and link will be added here.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📄</div>
+            <h3>Essay 2 Final</h3>
+            <p>Coming soon — title and link will be added here.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>Essay 3 draft</h3>
+            <p>Coming soon — title and link will be added here.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📄</div>
+            <h3>Essay 3 Final</h3>
+            <p>Coming soon — title and link will be added here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="reflections">
+        <p class="section-number">Section 3</p>
+        <h2>Reflections</h2>
+        <p>This section will hold my personal reflections on what I've learned — about writing, revision, research, and the writing process itself.</p>
+        <p><em>First reflection coming soon.</em></p>
+      </section>
+
+      <section id="contact">
+        <p class="section-number">Section 4</p>
+        <h2>Contact</h2>
+        <p>Feel free to reach out with any questions here.</p>
+        <p>📧 <a href="mailto:ma257054@ucf.edu" style="color: var(--accent);">ma257054@ucf.edu</a></p>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>ENC 1101 ePortfolio &nbsp;·&nbsp; Matthew Cruz &nbsp;·&nbsp; [Summer &amp; 2026]</p>
+    </footer>
+
+  </body>
+</html>
+
