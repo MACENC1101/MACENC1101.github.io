@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      ════════════════════════════════════════════════════════
+      VIEWER PAGE TEMPLATE — copy this file for each essay
+      ════════════════════════════════════════════════════════
+      STEP 1: Rename this file (e.g. essay1-draft.html)
+      STEP 2: Edit the CONFIG block below
+      STEP 3: Put your PDF (or image) in the same folder
+      STEP 4: In index.html, update the card to an <a> tag:
+              <a class="card" href="essay1-draft.html">
+      ════════════════════════════════════════════════════════
+    -->
+    <title>Essay Viewer — ENC 1101 ePortfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --ink: #1a1612;
+        --paper: #ffffff;
+        --cream: #fcfcfc;
+        --accent: #8b4a2b;
+        --muted: #7a7065;
+        --rule: #c8bfb0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-weight: 300;
+        line-height: 1.8;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* ── Top bar ── */
+      .topbar {
+        background: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0.85rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .back-btn {
+        color: var(--paper);
+        text-decoration: none;
+        font-family: 'Source Serif 4', serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.2s;
+        white-space: nowrap;
+      }
+      .back-btn:hover { color: #c8bfb0; }
+      .topbar-divider {
+        width: 1px;
+        height: 1.2rem;
+        background: rgba(255,255,255,0.2);
+      }
+      .topbar-title {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.8rem;
+        font-style: italic;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* ── Page header ── */
+      .page-header {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 2.5rem 2rem 1.5rem;
+        border-bottom: 1px solid var(--rule);
+        animation: fadeUp 0.6s ease both;
+        width: 100%;
+      }
+      .eyebrow {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.4rem;
+      }
+      .page-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        font-weight: 400;
+        line-height: 1.2;
+      }
+      .page-header .meta {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      /* ── Viewer area ── */
+      .viewer-wrap {
+        flex: 1;
+        max-width: 860px;
+        width: 100%;
+        margin: 2rem auto;
+        padding: 0 2rem 3rem;
+        animation: fadeUp 0.6s 0.15s ease both;
+      }
+
+      /* PDF embed */
+      .pdf-frame {
+        width: 100%;
+        height: 82vh;
+        border: 1px solid var(--rule);
+        border-radius: 2px;
+        display: block;
+      }
+
+      /* Image display */
+      .doc-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 1px solid var(--rule);
+        border-radius: 2px;
+        box-shadow: 4px 4px 0 var(--rule);
+      }
+
+      /* Fallback bar shown if PDF fails to load */
+      .fallback-notice {
+        margin-top: 1rem;
+        padding: 1rem 1.2rem;
+        background: var(--cream);
+        border: 1px solid var(--rule);
+        border-radius: 2px;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      .fallback-notice a { color: var(--accent); }
+
+      /* Download link */
+      .download-link {
+        display: inline-block;
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid currentColor;
+        padding-bottom: 1px;
+        transition: opacity 0.2s;
+      }
+      .download-link:hover { opacity: 0.65; }
+
+      /* ── Footer ── */
+      footer {
+        border-top: 2px solid var(--ink);
+        text-align: center;
+        padding: 1.5rem 2rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 520px) {
+        .topbar { padding: 0.85rem 1rem; }
+        .viewer-wrap, .page-header { padding-left: 1rem; padding-right: 1rem; }
+        .pdf-frame { height: 70vh; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!--
+    ══════════════════════════════════════════════════
+    CONFIG — edit these values for each essay page
+    ══════════════════════════════════════════════════
+    -->
+    <script>
+      const CONFIG = {
+        // Title shown at the top of the page
+        title: "Essay 1 — Final",
+
+        // Subtitle line (set to "" to hide)
+        meta: "Literacy Narrative · ENC 1101 · Summer 2026",
+
+        file: {
+          /*
+            type:
+              "pdf"   — a PDF file in the same folder (recommended)
+              "image" — a .jpg or .png in the same folder
+
+            url:
+              Just the filename, e.g. "essay1-draft.pdf"
+              (must be in the same folder as this html file)
+          */
+          type: "pdf",
+          url:  "pdfs/Essay_1_Final.pdf"
+        }
+      };
+    </script>
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <a class="back-btn" href="index.html">&#8592; Back to Portfolio</a>
+      <div class="topbar-divider"></div>
+      <span class="topbar-title" id="topbar-title"></span>
+    </div>
+
+    <!-- Page header -->
+    <div class="page-header">
+      <p class="eyebrow">ENC 1101 ePortfolio &nbsp;·&nbsp; Matthew Cruz</p>
+      <h1 id="page-title"></h1>
+      <p class="meta" id="page-meta"></p>
+    </div>
+
+    <!-- Viewer -->
+    <div class="viewer-wrap" id="viewer-wrap"></div>
+
+    <footer>
+      <p>ENC 1101 ePortfolio &nbsp;·&nbsp; Matthew Cruz &nbsp;·&nbsp; Summer 2026</p>
+    </footer>
+
+    <script>
+      // Populate text
+      document.getElementById("topbar-title").textContent = CONFIG.title;
+      document.getElementById("page-title").textContent   = CONFIG.title;
+      const metaEl = document.getElementById("page-meta");
+      if (CONFIG.meta) {
+        metaEl.textContent = CONFIG.meta;
+      } else {
+        metaEl.style.display = "none";
+      }
+      document.title = CONFIG.title + " — ENC 1101 ePortfolio";
+
+      // Render viewer
+      const wrap = document.getElementById("viewer-wrap");
+      const { type, url } = CONFIG.file;
+
+      if (type === "image") {
+        // Image viewer
+        const img = document.createElement("img");
+        img.src       = url;
+        img.alt       = CONFIG.title;
+        img.className = "doc-image";
+        wrap.appendChild(img);
+
+        const dl = document.createElement("a");
+        dl.href = url; dl.download = ""; dl.className = "download-link";
+        dl.textContent = "↓ Download image";
+        wrap.appendChild(dl);
+
+      } else {
+        // PDF viewer (default)
+        const embed = document.createElement("embed");
+        embed.src     = url;
+        embed.type    = "application/pdf";
+        embed.className = "pdf-frame";
+        embed.title   = CONFIG.title;
+        wrap.appendChild(embed);
+
+        // Fallback for browsers that block embedded PDFs (e.g. some mobile)
+        const notice = document.createElement("div");
+        notice.className = "fallback-notice";
+        notice.innerHTML =
+          "If the PDF doesn't display above, " +
+          "<a href=\"" + url + "\" target=\"_blank\">open it in a new tab</a> " +
+          "or <a href=\"" + url + "\" download>download it</a>.";
+        wrap.appendChild(notice);
+      }
+    </script>
+
+  </body>
+</html>

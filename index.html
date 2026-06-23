@@ -37,7 +37,6 @@
         animation: fadeDown 0.8s ease both;
       }
 
-      
       .portfolio-label {
         font-family: 'Source Serif 4', serif;
         font-size: 0.75rem;
@@ -55,7 +54,7 @@
         letter-spacing: -0.01em;
       }
 
-      header p {
+      header p.subtitle {
         margin-top: 1rem;
         color: var(--muted);
         font-size: 1rem;
@@ -138,6 +137,7 @@
         margin-top: 1.2rem;
       }
 
+      /* Base card — no document linked yet */
       .card {
         background: var(--cream);
         border: 1px solid var(--rule);
@@ -145,11 +145,36 @@
         border-radius: 2px;
         transition: box-shadow 0.2s, transform 0.2s;
         cursor: default;
+        text-decoration: none;
+        color: inherit;
+        display: block;
       }
 
-      .card:hover {
+      /* Linked card — has a document */
+      a.card {
+        cursor: pointer;
+        position: relative;
+      }
+
+      a.card:hover {
         box-shadow: 4px 4px 0 var(--ink);
         transform: translate(-2px, -2px);
+      }
+
+      a.card .card-badge {
+        position: absolute;
+        top: 0.6rem;
+        right: 0.7rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-family: 'Source Serif 4', serif;
+      }
+
+      /* Placeholder card — coming soon */
+      .card.placeholder {
+        opacity: 0.55;
       }
 
       .card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
@@ -217,38 +242,78 @@
       <section id="essays">
         <p class="section-number">Section 2</p>
         <h2>Essays &amp; Documents</h2>
-        <p>Written work produced throughout the semester will be collected here. Check back as new assignments are added.</p>
+        <p>Written work produced throughout the semester will be collected here. Click any card to view the document.</p>
         <div class="card-grid">
-          <div class="card">
+
+          <!--
+            HOW TO LINK A DOCUMENT:
+            ─────────────────────────────────────────────────────────────
+            Option A — .docx / Google Docs:
+              Change <div class="card placeholder"> to:
+              <a class="card" href="essay1-draft.html">
+              Then create essay1-draft.html using the viewer template.
+
+            Option B — .jpg / image:
+              Same as above — the viewer page will display it as an <img>.
+
+            Option C — PDF hosted online:
+              Same approach; the viewer embeds it in an <iframe>.
+
+            See viewer-template.html for the reusable viewer page.
+            ─────────────────────────────────────────────────────────────
+          -->
+
+          <!-- ✅ Example of a LINKED card (uncomment href and remove placeholder class when ready) -->
+          <!-- <a class="card" href="essay1-draft.html">
+            <span class="card-badge">View →</span>
             <div class="card-icon">📝</div>
             <h3>Essay 1 Draft</h3>
-            <p>Coming soon — title and link will be added here.</p>
-          </div>
-          <div class="card">
+            <p>Rhetorical Analysis — Draft</p>
+          </a> -->
+
+          <a class="card" href="Essay_1_Draft.html">
+            <span class="card-badge">View →</span>
+            <div class="card-icon">📝</div>
+            <h3>Essay 1 Draft</h3>
+            <p>Literacy Narrative — Draft</p>
+          </a>
+
+          <a class="card" href="Essay_1_Final.html">
+            <span class="card-badge">View →</span>
             <div class="card-icon">📄</div>
             <h3>Essay 1 Final</h3>
-            <p>Coming soon — title and link will be added here.</p>
-          </div>
-          <div class="card">
+            <p>Literacy Narrative - Final</p>
+          </a>
+
+          <a class="card" href="Essay_2_Draft.html">
+            <span class="card-badge">View →</span>
             <div class="card-icon">📝</div>
-            <h3>Essay 2 draft</h3>
-            <p>Coming soon — title and link will be added here.</p>
-          </div>
-          <div class="card">
+            <h3>Essay 2 Draft</h3>
+            <p>Rhetorical Analysis — Draft</p>
+          </a>
+
+          <a class="card" href="Essay_2_Final.html">
+            <span class="card-badge">View →</span>
             <div class="card-icon">📄</div>
             <h3>Essay 2 Final</h3>
-            <p>Coming soon — title and link will be added here.</p>
-          </div>
-          <div class="card">
+            <p>Rhetorical Analysis - Final</p>
+          </a>
+
+          <a class="card" href="Essay_3_Draft.html">
+            <span class="card-badge">View →</span>
             <div class="card-icon">📝</div>
-            <h3>Essay 3 draft</h3>
-            <p>Coming soon — title and link will be added here.</p>
-          </div>
-          <div class="card">
+            <h3>Essay 3 Draft</h3>
+            <p>Self Analysis — Draft</p>
+          </a>
+
+
+          <a class="card" href="Essay_3_Final.html">
+            <span class="card-badge">View →</span>
             <div class="card-icon">📄</div>
             <h3>Essay 3 Final</h3>
-            <p>Coming soon — title and link will be added here.</p>
-          </div>
+            <p>Self Analysis - Final</p>
+          </a>
+
         </div>
       </section>
 
@@ -269,9 +334,8 @@
     </main>
 
     <footer>
-      <p>ENC 1101 ePortfolio &nbsp;·&nbsp; Matthew Cruz &nbsp;·&nbsp; [Summer &amp; 2026]</p>
+      <p>ENC 1101 ePortfolio &nbsp;·&nbsp; Matthew Cruz &nbsp;·&nbsp; Summer 2026</p>
     </footer>
 
   </body>
 </html>
-
