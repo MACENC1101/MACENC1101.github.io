@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--
       ════════════════════════════════════════════════════════
-      VIEWER PAGE TEMPLATE — copy this file for each essay
+      ASSIGNMENTS PAGE TEMPLATE
       ════════════════════════════════════════════════════════
-      STEP 1: Rename this file (e.g. essay1-draft.html)
-      STEP 2: Edit the CONFIG block below
-      STEP 3: Put your PDF (or image) in the same folder
-      STEP 4: In index.html, update the card to an <a> tag:
-              <a class="card" href="essay1-draft.html">
+      This page displays Questionnaires, Peer Reviews, and
+      Discussions — each with two assignments showing the
+      prompt and your response.
+
+      HOW TO EDIT:
+      - Find each section marked with ✏️ EDIT
+      - Replace the placeholder text with your own content
+      - The structure repeats for each assignment — don't
+        change the HTML tags, just the text inside them
       ════════════════════════════════════════════════════════
     -->
-    <title>Essay Viewer — ENC 1101 ePortfolio</title>
+    <title>Assignments — ENC 1101 ePortfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,7 +29,9 @@
         --accent: #8b4a2b;
         --muted: #7a7065;
         --rule: #c8bfb0;
+        --prompt-bg: #f7f3ee;
       }
+      html { scroll-behavior: smooth; }
       body {
         background: var(--paper);
         color: var(--ink);
@@ -76,90 +82,131 @@
         white-space: nowrap;
       }
 
-      /* ── Page header ── */
-      .page-header {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 2.5rem 2rem 1.5rem;
+      /* ── Jump nav ── */
+      .jump-nav {
+        background: var(--cream);
         border-bottom: 1px solid var(--rule);
-        animation: fadeUp 0.6s ease both;
+        display: flex;
+        justify-content: center;
+        gap: 0;
+      }
+      .jump-nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-family: 'Source Serif 4', serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 0.75rem 1.6rem;
+        border-right: 1px solid var(--rule);
+        transition: background 0.2s, color 0.2s;
+      }
+      .jump-nav a:first-child { border-left: 1px solid var(--rule); }
+      .jump-nav a:hover { background: var(--accent); color: #fff; }
+
+      /* ── Main ── */
+      main {
+        flex: 1;
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 3.5rem 2rem 5rem;
         width: 100%;
       }
-      .eyebrow {
+
+      /* ── Subject section ── */
+      .subject {
+        margin-bottom: 5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.6s ease forwards;
+      }
+      .subject:nth-child(1) { animation-delay: 0.1s; }
+      .subject:nth-child(2) { animation-delay: 0.25s; }
+      .subject:nth-child(3) { animation-delay: 0.4s; }
+
+      .subject-label {
         font-size: 0.7rem;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
         color: var(--accent);
         margin-bottom: 0.4rem;
       }
-      .page-header h1 {
+      .subject > h2 {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        font-size: clamp(1.5rem, 3.5vw, 2.1rem);
         font-weight: 400;
-        line-height: 1.2;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 0.6rem;
+        margin-bottom: 2.5rem;
       }
-      .page-header .meta {
-        margin-top: 0.5rem;
-        font-size: 0.85rem;
+
+      /* ── Individual assignment ── */
+      .assignment {
+        margin-bottom: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid var(--rule);
+      }
+      .assignment:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .assignment-number {
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
         color: var(--muted);
+        margin-bottom: 0.3rem;
+      }
+      .assignment > h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+
+      /* ── Prompt block ── */
+      .prompt-block {
+        background: var(--prompt-bg);
+        border-left: 3px solid var(--accent);
+        border-radius: 0 2px 2px 0;
+        padding: 1.1rem 1.4rem;
+        margin-bottom: 1.5rem;
+      }
+      .prompt-block .block-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+      }
+      .prompt-block p {
+        font-size: 0.92rem;
+        color: #4a3f38;
+        margin: 0;
         font-style: italic;
       }
 
-      /* ── Viewer area ── */
-      .viewer-wrap {
-        flex: 1;
-        max-width: 860px;
-        width: 100%;
-        margin: 2rem auto;
-        padding: 0 2rem 3rem;
-        animation: fadeUp 0.6s 0.15s ease both;
+      /* ── Response block ── */
+      .response-block {
+        padding: 0.2rem 0 0 0;
       }
-
-      /* PDF embed */
-      .pdf-frame {
-        width: 100%;
-        height: 82vh;
-        border: 1px solid var(--rule);
-        border-radius: 2px;
-        display: block;
-      }
-
-      /* Image display */
-      .doc-image {
-        width: 100%;
-        height: auto;
-        display: block;
-        border: 1px solid var(--rule);
-        border-radius: 2px;
-        box-shadow: 4px 4px 0 var(--rule);
-      }
-
-      /* Fallback bar shown if PDF fails to load */
-      .fallback-notice {
-        margin-top: 1rem;
-        padding: 1rem 1.2rem;
-        background: var(--cream);
-        border: 1px solid var(--rule);
-        border-radius: 2px;
-        font-size: 0.85rem;
-        color: var(--muted);
-      }
-      .fallback-notice a { color: var(--accent); }
-
-      /* Download link */
-      .download-link {
-        display: inline-block;
-        margin-top: 1rem;
-        font-size: 0.8rem;
-        letter-spacing: 0.1em;
+      .response-block .block-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--accent);
-        text-decoration: none;
-        border-bottom: 1px solid currentColor;
-        padding-bottom: 1px;
-        transition: opacity 0.2s;
+        color: var(--muted);
+        margin-bottom: 0.8rem;
+        font-weight: 600;
       }
-      .download-link:hover { opacity: 0.65; }
+      .response-block p {
+        font-size: 0.95rem;
+        color: #3d3530;
+        margin-bottom: 0.9rem;
+      }
+      .response-block p:last-child { margin-bottom: 0; }
 
       /* ── Footer ── */
       footer {
@@ -172,117 +219,231 @@
       }
 
       @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       @media (max-width: 520px) {
         .topbar { padding: 0.85rem 1rem; }
-        .viewer-wrap, .page-header { padding-left: 1rem; padding-right: 1rem; }
-        .pdf-frame { height: 70vh; }
+        main { padding: 2.5rem 1rem 4rem; }
+        .jump-nav a { padding: 0.75rem 1rem; font-size: 0.7rem; }
       }
     </style>
   </head>
   <body>
 
-    <!--
-    ══════════════════════════════════════════════════
-    CONFIG — edit these values for each essay page
-    ══════════════════════════════════════════════════
-    -->
-    <script>
-      const CONFIG = {
-        // Title shown at the top of the page
-        title: "Discussions, Questionnaires, & Peer Reviews",
-
-        // Subtitle line (set to "" to hide)
-        meta: "Rhetorical Analysis · ENC 1101 · Summer 2026",
-
-        file: {
-          /*
-            type:
-              "pdf"   — a PDF file in the same folder (recommended)
-              "image" — a .jpg or .png in the same folder
-
-            url:
-              Just the filename, e.g. "essay1-draft.pdf"
-              (must be in the same folder as this html file)
-          */
-          type: "pdf",
-          url:  "essay1-draft.pdf"
-        }
-      };
-    </script>
-
     <!-- Top bar -->
     <div class="topbar">
       <a class="back-btn" href="index.html">&#8592; Back to Portfolio</a>
       <div class="topbar-divider"></div>
-      <span class="topbar-title" id="topbar-title"></span>
+      <span class="topbar-title">Questionnaires · Peer Reviews · Discussions</span>
     </div>
 
-    <!-- Page header -->
-    <div class="page-header">
-      <p class="eyebrow">ENC 1101 ePortfolio &nbsp;·&nbsp; Matthew Cruz</p>
-      <h1 id="page-title"></h1>
-      <p class="meta" id="page-meta"></p>
-    </div>
+    <!-- Jump navigation -->
+    <nav class="jump-nav">
+      <a href="#questionnaires">Questionnaires</a>
+      <a href="#peer-reviews">Peer Reviews</a>
+      <a href="#discussions">Discussions</a>
+    </nav>
 
-    <!-- Viewer -->
-    <div class="viewer-wrap" id="viewer-wrap"></div>
+    <main>
+
+      <!-- ════════════════════════════════════════
+           SUBJECT 1 — QUESTIONNAIRES
+           ════════════════════════════════════════ -->
+      <section class="subject" id="questionnaires">
+        <p class="subject-label">Subject 1</p>
+        <h2>Questionnaires</h2>
+
+        <!-- ✏️ EDIT — Questionnaire Assignment 1 -->
+        <div class="assignment">
+          <p class="assignment-number">Assignment 1</p>
+          <h3>Questionnaire Title Here</h3>
+
+          <div class="prompt-block">
+            <p class="block-label">Prompt</p>
+            <p>
+              After reviewing the readings for this week, as well as the Essay 1 prompt, samples, and brainstorming page, complete Essay 1 Questionnaire by answering the questions below (in less than 200 words across all questions):
+
+              How would you define literacy?
+              What would you say makes a good "narrative"?
+              What do you think you might like to write about in Essay 1?
+              What do you think you might be able to learn by reflecting on past literacy experiences?
+              What questions or concerns do you have about Essay 1/completing Essay 1?
+
+            </p>
+          </div>
+
+          <div class="response-block">
+            <p class="block-label">My Response</p>
+            <p>
+              1. The means of effectively reading and writing, or maybe communicating and comprehending with information on a larger scale.
+
+              2. A good narrative in my eyes would be one that is specific in detail, has a well defined structure, and tries to shifts ones understanding of a subject or idea on a higher level.
+
+              3. I considered writing about learning how to write in kindergarten, or how how coding (another means of language) started to click for me in a high school coding class. They were experiences that made me think of how I presented myself to the world and how I interpret it also.
+
+              4. I think this might remind me why I enjoy learning the way others speak to each other; and how I can use this to learn more about other means of communication.
+
+              5. None so far, however I am still considering the means of a title. It is not something I have done for major assessments so my attempt might fail to contain the message I would write about.
+            </p>
+            <p>
+            </p>
+          </div>
+        </div>
+
+        <!-- ✏️ EDIT — Questionnaire Assignment 2 -->
+        <div class="assignment">
+          <p class="assignment-number">Assignment 2</p>
+          <h3>Questionnaire Title Here</h3>
+
+          <div class="prompt-block">
+            <p class="block-label">Prompt</p>
+            <p>
+              Replace this with the questionnaire prompt or instructions.
+            </p>
+          </div>
+
+          <div class="response-block">
+            <p class="block-label">My Response</p>
+            <p>
+              Replace this with your response.
+            </p>
+            <p>
+              Second paragraph of your response goes here, if needed.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ════════════════════════════════════════
+           SUBJECT 2 — PEER REVIEWS
+           ════════════════════════════════════════ -->
+      <section class="subject" id="peer-reviews">
+        <p class="subject-label">Subject 2</p>
+        <h2>Peer Reviews</h2>
+
+        <!-- ✏️ EDIT — Peer Review Assignment 1 -->
+        <div class="assignment">
+          <p class="assignment-number">Assignment 1</p>
+          <h3>Peer Review Title Here</h3>
+
+          <div class="prompt-block">
+            <p class="block-label">Prompt</p>
+            <p>
+              You've worked hard on your drafts, and now's the time to share them and to give your classmates some feedback on their drafts!
+
+              Here, you will upload your draft of Essay 1 and complete peer reviews of at least two of your classmates' drafts of Essay 1. You will be automatically split into groups with this discussion board tool (you'll only be able to see responses from those in your group), and within those groups, you should review at least two of your classmates' essays.
+
+              In order to share your work, please create a new post in this discussion board and attach whatever you have thus far for Essay 1. Whether what you have is an outline, a description of your plans, a mockup of your final composition, a more complete draft of your work, etc., is up to you, but you must submit something for your classmates to review. You will respond to each other's work by replying to each other's posts. This peer review consists of three parts:
+            </p>
+          </div>
+
+          <div class="response-block">
+            <p class="block-label">My Response</p>
+            <p>
+              Some concerns I have right now with my draft would be my syntax placement, and and my repetitive use of the word I and my. If anyone knows any good methods for reducing them in context that would help. (really the only part that is actually in draft form is probably the conclusion section but I ask for leniency there) (Title: Literacy in Coding)
+            </p>
+            <p>
+              (From Fabiana Granados) Hi Matthew, I really enjoyed reading your essay since I have some coding experience in Python. Although you don't necessarily talk about reading and writing, your examples of coding teaching you literacy are still effective. About your syntax concern, I think most of the issues come from the length of your sentences, and having multiple ideas within one sentence. I think breaking down longer complex sentences into shorter simpler ones could make sure the essay flow is clear. For example, for the sentence, "At first, I still struggled with writing classes and objects; then attempting to learn how to effectively use public and private variables and dealing with some of Java’s less appealing syntax when trying to use and implement methods on objects." you could remove some of the ands and create 2 sentences instead. To help with the repetitive use of I and my, you could start the sentence with the actual action or idea instead of with yourself. I enjoyed the main idea of your essay and how you creatively compared coding to reading and writing.
+            </p>
+          </div>
+        </div>
+
+        <!-- ✏️ EDIT — Peer Review Assignment 2 -->
+        <div class="assignment">
+          <p class="assignment-number">Assignment 2</p>
+          <h3>Peer Review Title Here</h3>
+
+          <div class="prompt-block">
+            <p class="block-label">Prompt</p>
+            <p>
+              Here, you will complete a peer review of at least two of your classmates' drafts of Essay 2. As with our last peer review, you will be split into smaller peer review groups and will only have access to your group's posts in this discussion board. When you start giving feedback, please try to start with classmates who have not yet received any feedback.
+            </p>
+          </div>
+
+          <div class="response-block">
+            <p class="block-label">My Response</p>
+            <p>
+              My first concern is abusing the he pronoun; I might do what I did last time with switching the subject around to avoid the constant usage. The second might be trying to focusing on other aspects of the rhetorical strategies used and having enough space for it. If something needs to be trimmed down I do not mind any advice is appreciated. (Missing at least 2 paragraphs as of right now)
+              Essay 2 Draft.docx
+            </p>
+            <p>
+              (From Kevin Escobar) Hey Matthew!
+
+              I do notice that the pronoun he could occasionally confuse the reader. Perhaps you could change the sentence structures for some sentences. You could change certain sentences into "The creator proclaims that" and "the video employs multiple rhetorical strategies".
+
+              Your intro is excellent. It flows well and sets up the tension between short-form limitations and deep design analysis. Your paragraph on the summary of tai is also very good; you did an amazing job explaining the yin and yang connection. I also liked your third paragraph you highlighted his used of ethos very well.
+
+              One thing I would fix is diving deeper in how logos is used in the video for your first paragraph. Another idea is that you could write a paragraph on the constraints of youtube shorts, and how it leads to the creator using pathos/emotions to appeal to the viewers. Shorts are fast paced; therefore, emotion can quickly catch the attention of viewers.
+
+              Overall, I enjoyed reading your essay and I believe you're on the write track, can't wait to see your final draft!
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ════════════════════════════════════════
+           SUBJECT 3 — DISCUSSIONS
+           ════════════════════════════════════════ -->
+      <section class="subject" id="discussions">
+        <p class="subject-label">Subject 3</p>
+        <h2>Discussions</h2>
+
+        <!-- ✏️ EDIT — Discussion Assignment 1 -->
+        <div class="assignment">
+          <p class="assignment-number">Assignment 1</p>
+          <h3>Discussion Title Here</h3>
+
+          <div class="prompt-block">
+            <p class="block-label">Prompt</p>
+            <p>
+              Replace this with the discussion prompt you were given.
+            </p>
+          </div>
+
+          <div class="response-block">
+            <p class="block-label">My Response</p>
+            <p>
+              Replace this with your discussion post or response.
+            </p>
+            <p>
+              Second paragraph of your response goes here, if needed.
+            </p>
+          </div>
+        </div>
+
+        <!-- ✏️ EDIT — Discussion Assignment 2 -->
+        <div class="assignment">
+          <p class="assignment-number">Assignment 2</p>
+          <h3>Discussion Title Here</h3>
+
+          <div class="prompt-block">
+            <p class="block-label">Prompt</p>
+            <p>
+              Replace this with the discussion prompt you were given.
+            </p>
+          </div>
+
+          <div class="response-block">
+            <p class="block-label">My Response</p>
+            <p>
+              Replace this with your discussion post or response.
+            </p>
+            <p>
+              Second paragraph of your response goes here, if needed.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
 
     <footer>
       <p>ENC 1101 ePortfolio &nbsp;·&nbsp; Matthew Cruz &nbsp;·&nbsp; Summer 2026</p>
     </footer>
-
-    <script>
-      // Populate text
-      document.getElementById("topbar-title").textContent = CONFIG.title;
-      document.getElementById("page-title").textContent   = CONFIG.title;
-      const metaEl = document.getElementById("page-meta");
-      if (CONFIG.meta) {
-        metaEl.textContent = CONFIG.meta;
-      } else {
-        metaEl.style.display = "none";
-      }
-      document.title = CONFIG.title + " — ENC 1101 ePortfolio";
-
-      // Render viewer
-      const wrap = document.getElementById("viewer-wrap");
-      const { type, url } = CONFIG.file;
-
-      if (type === "image") {
-        // Image viewer
-        const img = document.createElement("img");
-        img.src       = url;
-        img.alt       = CONFIG.title;
-        img.className = "doc-image";
-        wrap.appendChild(img);
-
-        const dl = document.createElement("a");
-        dl.href = url; dl.download = ""; dl.className = "download-link";
-        dl.textContent = "↓ Download image";
-        wrap.appendChild(dl);
-
-      } else {
-        // PDF viewer (default)
-        const embed = document.createElement("embed");
-        embed.src     = url;
-        embed.type    = "application/pdf";
-        embed.className = "pdf-frame";
-        embed.title   = CONFIG.title;
-        wrap.appendChild(embed);
-
-        // Fallback for browsers that block embedded PDFs (e.g. some mobile)
-        const notice = document.createElement("div");
-        notice.className = "fallback-notice";
-        notice.innerHTML =
-          "If the PDF doesn't display above, " +
-          "<a href=\"" + url + "\" target=\"_blank\">open it in a new tab</a> " +
-          "or <a href=\"" + url + "\" download>download it</a>.";
-        wrap.appendChild(notice);
-      }
-    </script>
 
   </body>
 </html>
